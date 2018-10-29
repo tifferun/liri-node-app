@@ -1,13 +1,15 @@
 // Initialize dotenv
 require("dotenv").config(); 
 
+const request = require("request");
+
 // NPM Modules
 // const keys = require("./keys.js"); 
 const keys = require("./keys.js");
 
-var spotify = new Spotify(keys.spotify);  
+// var spotify = new Spotify(keys.spotify);  
 
-var OMDb = new OMDb(keys.OMDb); 
+//var OMDb = new OMDb(keys.OMDb); 
 // var Spotify = require('node-spotify-api');
 
 // local modules
@@ -27,7 +29,7 @@ if (!input) {
 }
 
 
-console.log("KEYS", keys.spotify); 
+// console.log("KEYS", keys.spotify); 
 
 switch(action){
     case'concert-this':
@@ -40,7 +42,9 @@ switch(action){
 
     case 'movie-this': 
         console.log("you want movie info on ", input);
+        movieThis(input)
         break; 
+      
 
     case 'do-what-it-says': 
         console.log("Do what it says", input);
@@ -62,14 +66,57 @@ function concertThis(artist){
 
 
 function spotifyThisSong(song){
+    request()
     console.log("You wnat a song for", song);
 }
 
-function movieThis(movie){\
-    request("http://www.omdbapi.com/?i=tt3896198&apikey=256453f5")
-    console.log("you want movie info on", movie);
-}
+function movieThis(movie){
+    request("https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy",
+   function (error, response, body) {
+    if (!error && response.statusCode === 200)
+    
+    {
+        console.log("The title of this moive is: " + JSON.parse(body).Title);     
+        console.log("The year this movie was released was: " + JSON.parse(body).Year);
+        console.log("The rating of the movie is: " + JSON.parse(body).Rated);
+        // console.log("The rotten tomatoes review is: " + JSON.parse(body).Ratings);
+        console.log("The movie was produced in: " + JSON.parse(body).Country);
+        console.log("The movie's language is: " + JSON.parse(body).Language);
+        console.log("The plot of this moive is: " + JSON.parse(body).Plot);
+        console.log("The actors in the movie are: " + JSON.parse(body).Actors);
+      }
+    });
 
+   }
+
+
+
+
+// request("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=trilogy", 
+// function(error, response, body) {
+
+//   // If the request is successful (i.e. if the response status code is 200)
+//   if (!error && response.statusCode === 200) {
+
+//     // Parse the body of the site and recover just the imdbRating
+//     // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+//     console.log("The movie's rating is: " + JSON.parse(body).Year);
+//     console.log("The plot of this moive is: " + JSON.parse(body).Plot);
+//   }
+// });
+/// look over #17 ///
+
+// * Title of the movie. x
+// * Year the movie came out.x
+// * IMDB Rating of the movie.x
+// * Rotten Tomatoes Rating of the movie.
+// * Country where the movie was produced.
+// * Language of the movie.x
+// * Plot of the movie.x
+// * Actors in the movie.x
+
+
+// "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
 
 function doWhatItSays(it){
     console.log("Do what it says", it);
