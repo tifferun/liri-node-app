@@ -3,7 +3,8 @@ require("dotenv").config();
 
 // NPM Modules
 // const keys = require("./keys.js"); 
-// var spotify = new spotify(keys.spotify); 
+
+var spotify = new spotify(keys.spotify); 
 
 var Spotify = require('node-spotify-api');
 
