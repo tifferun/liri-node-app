@@ -8,8 +8,7 @@ exports.spotify = {
 console.log("It loaded");
 
 exports.OMDb = {
-  id: process.env.SPOTIFY_ID,
-  secret: process.env.SPOTIFY_SECRET
+  id: process.env.OMDb_ID,
 };
 
 

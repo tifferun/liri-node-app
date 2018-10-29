@@ -3,14 +3,16 @@ require("dotenv").config();
 
 // NPM Modules
 // const keys = require("./keys.js"); 
+const keys = require("./keys.js");
 
-var spotify = new spotify(keys.spotify); 
+var spotify = new Spotify(keys.spotify);  
 
-var Spotify = require('node-spotify-api');
+var OMDb = new OMDb(keys.OMDb); 
+// var Spotify = require('node-spotify-api');
 
 // local modules
 
-const keys = require("./keys.js");
+
  
 const action = process.argv[2];
 
@@ -63,7 +65,8 @@ function spotifyThisSong(song){
     console.log("You wnat a song for", song);
 }
 
-function movieThis(movie){
+function movieThis(movie){\
+    request("http://www.omdbapi.com/?i=tt3896198&apikey=256453f5")
     console.log("you want movie info on", movie);
 }
 
