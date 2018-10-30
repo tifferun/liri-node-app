@@ -41,7 +41,7 @@ switch(action){
         break; 
 
     case 'movie-this': 
-        console.log("you want movie info on ", input);
+        console.log("you want movie info on", input);
         movieThis(input)
         break; 
       
@@ -65,10 +65,43 @@ function concertThis(artist){
 
 
 
+
+
+// Artist(s)
+// The song's name
+// A preview link of the song from Spotify
+// The album that the song is from
+
+
 function spotifyThisSong(song){
-    request()
-    console.log("You wnat a song for", song);
+    request(exports.spotify)
+    // function (error, response, body) {
+    //     if (!error && response.statusCode === 200)
+    // };
+
+    // get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned 
+  spotifyApi.getArtistAlbums('4e34da7ce9bda46e2a338051706ffd602', function(err, data) {
+    if (err) console.error(err);
+    else console.log('Artist albums', data);
+  });
+   
+  // get Elvis' albums, using Promises through Promise, Q or when
+  spotifyApi.getArtistAlbums('e34da7ce9bda46e2a338051706ffd602')
+    .then(function(data) {
+      console.log('Artist albums', data);
+    }, function(err) {
+      console.error(err);
+    });
+
+    console.log("You want a song for", song);
+    console.log("Here's the preview link ", song);
+    console.log("The album that the song is from", song);
 }
+
+
+
+
+
 
 function movieThis(movie){
     request("https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy",
@@ -117,6 +150,11 @@ function movieThis(movie){
 
 
 // "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+
+
+
+
+
 
 function doWhatItSays(it){
     console.log("Do what it says", it);
