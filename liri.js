@@ -7,10 +7,11 @@ const request = require("request");
 // const keys = require("./keys.js"); 
 const keys = require("./keys.js");
 
-// var spotify = new Spotify(keys.spotify);  
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify(keys.spotify);  
 
 //var OMDb = new OMDb(keys.OMDb); 
-// var Spotify = require('node-spotify-api');
+
 
 // local modules
 
@@ -74,24 +75,22 @@ function concertThis(artist){
 
 
 function spotifyThisSong(song){
-    request(exports.spotify)
+
     // function (error, response, body) {
     //     if (!error && response.statusCode === 200)
     // };
 
     // get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned 
-  spotifyApi.getArtistAlbums('4e34da7ce9bda46e2a338051706ffd602', function(err, data) {
-    if (err) console.error(err);
-    else console.log('Artist albums', data);
-  });
+    spotify.search({ type: 'track', query:song}, function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+       
+      console.log(data); 
+      });
    
   // get Elvis' albums, using Promises through Promise, Q or when
-  spotifyApi.getArtistAlbums('e34da7ce9bda46e2a338051706ffd602')
-    .then(function(data) {
-      console.log('Artist albums', data);
-    }, function(err) {
-      console.error(err);
-    });
+ 
 
     console.log("You want a song for", song);
     console.log("Here's the preview link ", song);
